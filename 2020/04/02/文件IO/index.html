@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2020 | Hexo</title>
+  <title>文件IO | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/2020/index.html">
+  <meta name="description" content="[TOC] 标准I&#x2F;O标准I&#x2F;O是指标准C中定义的一组输入和输出的API,与操作系统无关,具备可移植性. 流标准I&#x2F;O将打开文件的信息抽象成为流(stream),使用FILE结构体代表流.标准I&#x2F;O的所有操作都是围绕FILE结构体进行的. 文本流与二进制流Windows操作系统区分文本流与二进制流,两者间最显著的区别在文本流中\n会被替换成\r\n,而二进制流不会做这种转换.而Linux操作系统不">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件IO">
+<meta property="og:url" content="http://yoursite.com/2020/04/02/%E6%96%87%E4%BB%B6IO/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="[TOC] 标准I&#x2F;O标准I&#x2F;O是指标准C中定义的一组输入和输出的API,与操作系统无关,具备可移植性. 流标准I&#x2F;O将打开文件的信息抽象成为流(stream),使用FILE结构体代表流.标准I&#x2F;O的所有操作都是围绕FILE结构体进行的. 文本流与二进制流Windows操作系统区分文本流与二进制流,两者间最显著的区别在文本流中\n会被替换成\r\n,而二进制流不会做这种转换.而Linux操作系统不">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-04-02T06:26:40.382Z">
+<meta property="article:modified_time" content="2020-04-02T06:39:26.124Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -150,76 +154,623 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-文件IO" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      文件IO
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/02/%E6%96%87%E4%BB%B6IO/" class="archive-article-date">
+
+        
+        <a href="/2020/04/02/%E6%96%87%E4%BB%B6IO/" class="archive-article-date">
   	<time datetime="2020-04-02T06:26:40.382Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-02</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/02/%E6%96%87%E4%BB%B6IO/">文件IO</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h1 id="标准I-O"><a href="#标准I-O" class="headerlink" title="标准I/O"></a>标准I/O</h1><p>标准I/O是指标准C中定义的一组输入和输出的API,与操作系统无关,具备可移植性.</p>
+<h2 id="流"><a href="#流" class="headerlink" title="流"></a>流</h2><p>标准I/O将打开文件的信息抽象成为流(stream),使用<code>FILE</code>结构体代表流.标准I/O的所有操作都是围绕<code>FILE</code>结构体进行的.</p>
+<h3 id="文本流与二进制流"><a href="#文本流与二进制流" class="headerlink" title="文本流与二进制流"></a>文本流与二进制流</h3><p>Windows操作系统区分文本流与二进制流,两者间最显著的区别在文本流中<code>\n</code>会被替换成<code>\r\n</code>,而二进制流不会做这种转换.而Linux操作系统不区分文本流与二进制流,不会做这种转换.</p>
+<h3 id="流的缓冲类型"><a href="#流的缓冲类型" class="headerlink" title="流的缓冲类型"></a>流的缓冲类型</h3><p>流有三种缓冲类型:</p>
+<ol>
+<li>全缓冲: 当流的缓冲区无数据或无空间时才执行实际I/O操作.使用标准I/O打开文件时默认是全缓冲.</li>
+<li>行缓冲: 当在输入输出中遇到换行符<code>\n</code>时才执行实际I/O操作.当流与终端交互时(输入或输出)是行缓冲.</li>
+<li>无缓冲: 直接与文件进行交互,不进行缓存.向标准错误流输出时是无缓冲.</li>
+</ol>
+<h3 id="预定义的流"><a href="#预定义的流" class="headerlink" title="预定义的流"></a>预定义的流</h3><p>标准I/O中预定义了3个流,程序运行时自动打开这三个流:</p>
+<table>
+<thead>
+<tr>
+<th>预定义的流</th>
+<th>文件描述符</th>
+<th>关键字</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>标准输入流</td>
+<td>0</td>
+<td><code>stdin</code></td>
+</tr>
+<tr>
+<td>标准输出流</td>
+<td>1</td>
+<td><code>stdout</code></td>
+</tr>
+<tr>
+<td>标准错误流</td>
+<td>2</td>
+<td><code>stderr</code></td>
+</tr>
+</tbody></table>
+<p>除了上面3个预定义的的流以外,一个C程序最多打开1021个流.</p>
+<h2 id="流的打开与关闭"><a href="#流的打开与关闭" class="headerlink" title="流的打开与关闭"></a>流的打开与关闭</h2><h3 id="流的打开"><a href="#流的打开" class="headerlink" title="流的打开"></a>流的打开</h3><p>使用<code>fopen()</code>函数打开一个流,其函数原型如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">FILE *<span class="title">fopen</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">const</span> <span class="keyword">char</span> *mode)</span></span>;</span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
-          
+<p>成功打开流时返回流的指针,出错时返回<code>NULL</code>,并设置错误号<code>errno</code>.</p>
+<p><code>pathname</code>参数表示要打开的文件路径,<code>mode</code>参数表示文件的打开方式,可选值如下:</p>
+<table>
+<thead>
+<tr>
+<th>文件打开方式</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&quot;r&quot;</code>或<code>&quot;rb&quot;</code></td>
+<td>以只读方式打开文件.若文件不存在则报错.</td>
+</tr>
+<tr>
+<td><code>&quot;r+&quot;</code>或<code>&quot;rb+&quot;</code></td>
+<td>以读写方式打开文件.若文件不存在则报错.</td>
+</tr>
+<tr>
+<td><code>&quot;w&quot;</code>或<code>&quot;wb&quot;</code></td>
+<td>以只写方式打开文件.若文件存在则清空原文件;若文件不存在则创建文件.</td>
+</tr>
+<tr>
+<td><code>&quot;w+&quot;</code>或<code>&quot;wb+&quot;</code></td>
+<td>以读写方式打开文件.若文件存在则清空原文件;若文件不存在则创建文件.</td>
+</tr>
+<tr>
+<td><code>&quot;a&quot;</code>或<code>&quot;ab&quot;</code></td>
+<td>以只写方式打开文件.若文件存在则将数据追加到文件末尾;若文件不存在则创建文件.</td>
+</tr>
+<tr>
+<td><code>&quot;a+&quot;</code>或<code>&quot;ab+&quot;</code></td>
+<td>以读写方式打开文件.若文件存在则将数据追加到文件末尾;若文件不存在则创建文件.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>上面的<code>&quot;b&quot;</code>参数表示以二进制方式打开文件,Linux下不区分文本流与二进制流,该参数可忽略.</p>
+</blockquote>
+<p>下面表格对比了各种打开方式的区别:</p>
+<table>
+<thead>
+<tr>
+<th>要求</th>
+<th><code>r</code></th>
+<th><code>w</code></th>
+<th><code>a</code></th>
+<th><code>r+</code></th>
+<th><code>w+</code></th>
+<th><code>a+</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>文件必须存在</td>
+<td>&#10004;</td>
+<td></td>
+<td></td>
+<td>&#10004;</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>清空原文件中的内容</td>
+<td></td>
+<td>&#10004;</td>
+<td></td>
+<td></td>
+<td>&#10004;</td>
+<td></td>
+</tr>
+<tr>
+<td>流可以读</td>
+<td>&#10004;</td>
+<td></td>
+<td></td>
+<td>&#10004;</td>
+<td>&#10004;</td>
+<td>&#10004;</td>
+</tr>
+<tr>
+<td>流可以写</td>
+<td></td>
+<td>&#10004;</td>
+<td>&#10004;</td>
+<td>&#10004;</td>
+<td>&#10004;</td>
+<td>&#10004;</td>
+</tr>
+<tr>
+<td>流只能在尾端写</td>
+<td></td>
+<td></td>
+<td>&#10004;</td>
+<td></td>
+<td></td>
+<td>&#10004;</td>
+</tr>
+</tbody></table>
+<p>使用<code>fopen()</code>函数创建的文件的访问权限为<code>0666</code>(<code>rw-rw-rw-</code>),但系统的<code>umask</code>设定会影响文件的访问权限,实际权限的表达式为<code>实际权限 = 默认权限&amp;~umask</code>.默认的<code>umask</code>值为<code>022</code>,因此使用<code>fopen()</code>函数创建的文件的实际访问权限为<code>0644</code>(<code>rw-r--r--</code>).</p>
+<h3 id="流的关闭"><a href="#流的关闭" class="headerlink" title="流的关闭"></a>流的关闭</h3><p>使用<code>fclose()</code>函数打开一个流,其函数原型如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fclose</span><span class="params">(FILE *stream)</span></span>;</span><br></pre></td></tr></table></figure>
 
+<p>成功时关闭流时返回0,出错时返回<code>EOF</code>,并设置错误号<code>errno</code>.</p>
+<p>流关闭时自动刷新缓冲区中的数据并释放缓冲区,流关闭后不能对其执行任何操作.</p>
+<p>当一个程序正常终止时,所有打开的流都会被关闭.</p>
+<h3 id="处理错误信息"><a href="#处理错误信息" class="headerlink" title="处理错误信息"></a>处理错误信息</h3><p>当打开或关闭流的过程中发生错误时,程序会将错误号存放在变量<code>errno</code>中,该变量被定义在头文件<code>errno.h</code>中.使用<code>perror()</code>和<code>strerror()</code>可以得到错误的详细信息,两个函数的函数原型如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">perror</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *s)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strerror</span><span class="params">(<span class="keyword">int</span> errno)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>perror()</code>函数先输出字符串<code>s</code>,再输出错误的详细信息.<code>strerror()</code>函数根据错误号<code>errno</code>返回对应的错误的详细信息.</p>
+<p>下面例子演示了一个常见的打开文件并处理错误的方式:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    FILE *fp;</span><br><span class="line">    <span class="keyword">if</span> ((fp = fopen(<span class="string">"file.txt"</span>, <span class="string">"r+"</span>)) == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="comment">// 下面两种写法是等价的</span></span><br><span class="line">        perror(<span class="string">"打开流的过程中发生错误"</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"打开流的过程中发生错误: %s\n"</span>, strerror(errno));</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ((fclose(fp)) == EOF) &#123;</span><br><span class="line">    	<span class="comment">// 下面两种写法是等价的</span></span><br><span class="line">        perror(<span class="string">"关闭流的过程中发生错误"</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"关闭流的过程中发生错误: %s\n"</span>, strerror(errno));</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="流的读写"><a href="#流的读写" class="headerlink" title="流的读写"></a>流的读写</h2><p>流支持三种不同的读写方式:</p>
+<ul>
+<li><strong>按字符读写</strong>: <code>fgetc()</code>/<code>fputc()</code>每调用一次读写一个字符.</li>
+<li><strong>按行读写</strong>: <code>fgets()</code>/<code>fputs()</code>每调用一次读写一行.</li>
+<li><strong>按对象读写</strong>: <code>fread()</code>/<code>fread()</code>每调用一次读写若干个具有相同长度的对象.</li>
+</ul>
+<p>按对象读写最灵活,最常被使用.</p>
+<h3 id="按字符读写"><a href="#按字符读写" class="headerlink" title="按字符读写"></a>按字符读写</h3><h4 id="按字符输入"><a href="#按字符输入" class="headerlink" title="按字符输入"></a>按字符输入</h4><p>下列函数用来读取一个字符:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fgetc</span><span class="params">(FILE *stream)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getc</span><span class="params">(FILE *stream)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getchar</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>其中<code>fgetc()</code>与<code>getc()</code>是等价的,它们从<code>stream</code>中读取一个字符,<code>getchar()</code>从标准输入<code>stdin</code>中读取一个字符,等同于<code>fgetc(stdin)</code>.</p>
+<p>成功读取时返回读取到的字符,读到文件末尾或出错时返回<code>EOF</code>.</p>
+<h4 id="按字符输出"><a href="#按字符输出" class="headerlink" title="按字符输出"></a>按字符输出</h4><p>下列函数用来输出一个字符:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fputc</span><span class="params">(<span class="keyword">int</span> c, FILE *stream)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">putc</span><span class="params">(<span class="keyword">int</span> c, FILE *stream)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">putchar</span><span class="params">(<span class="keyword">int</span> c)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>其中<code>fgetc()</code>与<code>getc()</code>是等价的,它们将<code>c</code>转化为<code>unsigned int</code>类型变量并将其写入到<code>stream</code>中,<code>getchar()</code>向标准输入<code>stdin</code>中写入一个字符,等同于<code>fputc(c, stdout)</code>.</p>
+<p>成功写入时返回写入的字符,出错时返回<code>EOF</code>并设置错误号<code>errno</code>.</p>
+<p>下面的例子使用<code>fgetc</code>和<code>fputc</code>实现文件的复制:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 若传入参数不够则提醒用户输入完整参数</span></span><br><span class="line">    <span class="keyword">if</span> (argc &lt; <span class="number">3</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Usage: %s &lt;src_file&gt; &lt;dst_file&gt;\n"</span>, argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 打开输入流与输出流</span></span><br><span class="line">    FILE *fps, *fpd;</span><br><span class="line">    <span class="keyword">if</span> ((fps = fopen(argv[<span class="number">1</span>], <span class="string">"r"</span>)) == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        perror(<span class="string">"打开src_file的过程中发生错误"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ((fpd = fopen(argv[<span class="number">2</span>], <span class="string">"w"</span>)) == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        perror(<span class="string">"创建dst_file的过程中发生错误"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 进行复制</span></span><br><span class="line">    <span class="keyword">char</span> ch;</span><br><span class="line">    <span class="keyword">while</span>((ch = fgetc(fps)) != EOF) &#123;</span><br><span class="line">        fputc(ch, fpd);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 关闭两个流</span></span><br><span class="line">    fclose(fps);</span><br><span class="line">    fclose(fpd);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="按行读写"><a href="#按行读写" class="headerlink" title="按行读写"></a>按行读写</h3><h4 id="按行输入"><a href="#按行输入" class="headerlink" title="按行输入"></a>按行输入</h4><p>下列函数用于读取一行:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">gets</span><span class="params">(<span class="keyword">char</span> *s)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">fgets</span><span class="params">(<span class="keyword">char</span> *s, <span class="keyword">int</span> <span class="built_in">size</span>, FILE* stream)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>gets()</code>从标准输入<code>stdin</code>中读取一行数据,不建议使用,容易造成缓冲区溢出.<code>fget()</code>从流<code>stream</code>中读取数据,遇到<code>\n</code>或读到<code>size-1</code>个字符时返回,因此独到的字符串总是包含<code>\0</code>.</p>
+<p>成功读取时返回读到的缓冲区字符串指针<code>s</code>,读到文件末尾或出错时返回<code>NULL</code>.</p>
+<h4 id="按行输出"><a href="#按行输出" class="headerlink" title="按行输出"></a>按行输出</h4><p>下列函数用于输出一行:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">puts</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *s)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fputs</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *s, FILE *stream)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>puts()</code>将缓冲区<code>s</code>中的字符串写入到标准输出流<code>stdout</code>中,并追加<code>\n</code>.<code>fputs()</code>将缓冲区<code>s</code>中的字符串写入到流<code>stream</code>中,并追加<code>\n</code>.</p>
+<p>成功写入时返回输出的字符个数,出错时返回<code>EOF</code>并设置错误号<code>errno</code>.</p>
+<p>尽管我们称其为按行输出,但<code>puts()</code>和<code>fputs()</code>仅仅是将字符串<code>s</code>中的内容输出,不会受到<code>s</code>中可能存在的换行符<code>\n</code>影响.</p>
+<p>下面程序用于统计传入的文件的行数:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 20	<span class="comment">// 指定缓冲区大小</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 若传入参数不够则提醒用户输入完整参数</span></span><br><span class="line">    <span class="keyword">if</span> (argc &lt; <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Usage: %s &lt;filename&gt;\n"</span>, argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 打开文件</span></span><br><span class="line">    FILE *fp;</span><br><span class="line">    <span class="keyword">if</span> ((fp = fopen(argv[<span class="number">0</span>], <span class="string">"a+"</span>)) == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        perror(<span class="string">"打开文件的过程中发生错误"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 读取到文件末尾,计算行数</span></span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">line</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span> buff[N];</span><br><span class="line">    <span class="keyword">while</span> (fgets(buff, N, fp) != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="comment">// 若缓冲区内容以\n结尾,才表示读完一整行</span></span><br><span class="line">        <span class="keyword">if</span> (buff[<span class="built_in">strlen</span>(buff)<span class="number">-1</span>] == <span class="string">'\n'</span>)	<span class="built_in">line</span>++;</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="按对象读写"><a href="#按对象读写" class="headerlink" title="按对象读写"></a>按对象读写</h3><p>下列函数用于从流中读写若干个对象:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">size_t</span> <span class="title">fread</span><span class="params">(<span class="keyword">void</span> *ptr, <span class="keyword">size_t</span> <span class="built_in">size</span>, <span class="keyword">size_t</span> nmemb, FILE *stream)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">size_t</span> <span class="title">fwrite</span><span class="params">(<span class="keyword">const</span> <span class="keyword">void</span> *ptr, <span class="keyword">size_t</span> <span class="built_in">size</span>, <span class="keyword">size_t</span> nmemb, FILE *stream)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>fread()</code>和<code>fwrite()</code>用于对流<code>stream</code>读写最多<code>nmemb</code>个大小为<code>size</code>字节的对象,并存入缓冲区<code>*ptr</code>中.</p>
+<p>读写成功时返回读写的对象个数,出错时返回<code>EOF</code>并设置错误号<code>errno</code>.</p>
+<p>下面的例子使用<code>fread()</code>和<code>fwrite()</code>实现文件的复制:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 20	<span class="comment">// 指定缓冲区大小</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 若传入参数不够则提醒用户输入完整参数</span></span><br><span class="line">    <span class="keyword">if</span> (argc &lt; <span class="number">3</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Usage: %s &lt;src_file&gt; &lt;dst_file&gt;\n"</span>, argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 打开输入流与输出流</span></span><br><span class="line">    FILE *fps, *fpd;</span><br><span class="line">    <span class="keyword">if</span> ((fps = fopen(argv[<span class="number">1</span>], <span class="string">"r"</span>)) == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        perror(<span class="string">"打开src_file的过程中发生错误"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ((fpd = fopen(argv[<span class="number">2</span>], <span class="string">"w"</span>)) == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        perror(<span class="string">"创建dst_file的过程中发生错误"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 进行复制</span></span><br><span class="line">    <span class="keyword">char</span> buff[N];</span><br><span class="line">    <span class="keyword">int</span> nmemb;</span><br><span class="line">    <span class="keyword">while</span>((nmemb = fread(buff, <span class="number">1</span>, N, fps)) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        fwrite(buff, <span class="number">1</span>, nmemb, fpd);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 关闭两个流</span></span><br><span class="line">    fclose(fps);</span><br><span class="line">    fclose(fpd);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="流的刷新"><a href="#流的刷新" class="headerlink" title="流的刷新"></a>流的刷新</h2><p>流的刷新指的是立即执行实际I/O操作并清空缓冲区,在以下三种情况下,流会刷新:</p>
+<ol>
+<li>全缓冲情况下缓冲区满或行缓冲情况下遇到换行符.</li>
+<li>流关闭时.</li>
+<li>调用<code>fflush()</code>函数显式刷新缓冲区.</li>
+</ol>
+<p><code>fflush()</code>函数的函数原型如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fflush</span><span class="params">(FILE *stream)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>若刷新成功则返回0,出错则返回<code>EOF</code>.</p>
+<p>下面例子演示刷新缓冲区的作用:若不刷新缓冲区,则不会进行实际I/O,文件的大小不会改变:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 打开一个一直不关闭的输出流</span></span><br><span class="line">    FILE *fp;</span><br><span class="line">    <span class="keyword">if</span> ((fp = fopen(<span class="string">"test.txt"</span>, <span class="string">"w"</span>)) == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        perror(<span class="string">"打开文件的过程中发生错误"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    fputc(<span class="string">'a'</span>, fp);</span><br><span class="line">    <span class="comment">// fflush(fp)		// 若注释掉该句,则发现创建的文件一直为空</span></span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行上述程序,我们发现创建的文件的大小一直为0,说明不进行缓冲的情况下不会进行实际的I/O操作.</p>
+<h2 id="流的定位"><a href="#流的定位" class="headerlink" title="流的定位"></a>流的定位</h2><p>下列函数与流的定位有关:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fseek</span><span class="params">(FILE *stream, <span class="keyword">long</span> offset, <span class="keyword">int</span> whence)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">ftell</span><span class="params">(FILE *stream)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rewind</span><span class="params">(FILE *stream)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>ftell()</code>函数返回流<code>stream</code>的当前读写位置,出错时返回<code>EOF</code>并设置<code>errno</code>.</p>
+</li>
+<li><p><code>fseek()</code>对流进行定位,成功时返回0,出错时返回<code>EOF</code>并设置<code>errno</code>.</p>
+<p>  该函数将流定位到<code>whence</code>加上<code>offset</code>个字节的位置,<code>whence</code>的取值为下面三个常量之一:</p>
+<table>
+<thead>
+<tr>
+<th><code>whence</code></th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>SEEK_SET</code></td>
+<td>文件开头</td>
+</tr>
+<tr>
+<td><code>SEEK_CUR</code></td>
+<td>文件的当前读写位置</td>
+</tr>
+<tr>
+<td><code>SEEK_END</code></td>
+<td>文件末尾</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<p>下面例子演示了<code>fseek()</code>函数的用法:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">   	FILE *fp = fopen(<span class="string">"file.txt"</span>,<span class="string">"w+"</span>);</span><br><span class="line">    </span><br><span class="line">   	<span class="built_in">fputs</span>(<span class="string">"This is a file"</span>, fp);</span><br><span class="line">	fseek(fp, <span class="number">7</span>, SEEK_SET);</span><br><span class="line">   	<span class="built_in">fputs</span>(<span class="string">" C Programming Langauge"</span>, fp);</span><br><span class="line">   	</span><br><span class="line">    fclose(fp);</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最终文件中的内容如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">This is C Programming Langauge</span><br></pre></td></tr></table></figure>
+
+<h2 id="判断流的出错与结束"><a href="#判断流的出错与结束" class="headerlink" title="判断流的出错与结束"></a>判断流的出错与结束</h2><ul>
+<li><p>下面函数用于判断流是否出错:</p>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">ferror</span><span class="params">(FILE *stream)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>  若流<code>stream</code>出错则返回非零数,否则返回0.</p>
+</li>
+<li><p>下面函数用于判断流是否已读到文件末尾:</p>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">feof</span><span class="params">(FILE *stream)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>  若已读到流<code>stream</code>末尾则返回非零数,否则返回0.</p>
+</li>
+</ul>
+<h2 id="格式化输入输出"><a href="#格式化输入输出" class="headerlink" title="格式化输入输出"></a>格式化输入输出</h2><p><code>fscanf()</code>和<code>fprintf()</code>两个函数用于对流进行格式化输入输出,用法类似于<code>scanf()</code>和<code>printf()</code>.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fscanf</span><span class="params">(FILE *stream, <span class="keyword">const</span> <span class="keyword">char</span> *format, ...)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fprintf</span><span class="params">(FILE *stream, <span class="keyword">const</span> <span class="keyword">char</span> *format, ...)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>读写成功时返回读写的字符个数,出错时返回<code>EOF</code>并设置<code>errno</code>.</p>
+<p>下面例子以追加形式每隔一秒向文件<code>log.txt</code>中写入当前时间以及行号:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unistd.h&gt;	// sleep()函数的头文件</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;time.h&gt;	// time()和localtime()函数的头文件</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 20	<span class="comment">// 指定缓冲区大小</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 打开log.txt文件</span></span><br><span class="line">    FILE *fp;</span><br><span class="line">    <span class="keyword">if</span> ((fp = fopen(<span class="string">"log.txt"</span>, <span class="string">"a+"</span>)) == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        perror(<span class="string">"打开log.txt的过程中发生错误"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 读取到文件末尾,计算行数</span></span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">line</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span> buff[N];</span><br><span class="line">    <span class="keyword">while</span> (fgets(buff, N, fp) != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (buff[<span class="built_in">strlen</span>(buff)<span class="number">-1</span>] == <span class="string">'\n'</span>)	<span class="built_in">line</span>++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 不断循环向文件末尾追加内容</span></span><br><span class="line">    <span class="keyword">time_t</span> t;			<span class="comment">// 存储以秒数表示的时间</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">tm</span> *<span class="title">tp</span>;</span>		<span class="comment">// 存储以可读格式表示的时间</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">        time(&amp;t);</span><br><span class="line">        tp = localtime(&amp;t);</span><br><span class="line">        <span class="built_in">fprintf</span>(fp, <span class="string">"%02d, %04d-%02d-%02d %02d:%02d:%02d\n"</span>, ++<span class="built_in">line</span>, </span><br><span class="line">               tp-&gt;tm_year+<span class="number">1900</span>, tp-&gt;tm_mon+<span class="number">1</span>, tp-&gt;tm_mday,</span><br><span class="line">               tp-&gt;tm_hour, tp-&gt;tm_min, tp-&gt;tm_sec);</span><br><span class="line">        fflush(fp);</span><br><span class="line">        sleep(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行上述程序一段时间后,按<kbd>Ctrl</kbd>+<kbd>c</kbd>终止程序,发现时间信息已经按照期望的格式存入<code>log.txt</code>文件中.再次运行该程序一段时间,发现时间信息被追加进<code>log.txt</code>文件中且行号能正确的按照顺序接上.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">01, 2019-12-10 08:30:53</span><br><span class="line">02, 2019-12-10 08:30:54</span><br><span class="line">03, 2019-12-10 08:30:55</span><br><span class="line">04, 2019-12-10 08:31:12</span><br><span class="line">05, 2019-12-10 08:31:13</span><br><span class="line">06, 2019-12-10 08:31:14</span><br><span class="line">07, 2019-12-10 08:31:15</span><br></pre></td></tr></table></figure>
+
+<h1 id="文件I-O"><a href="#文件I-O" class="headerlink" title="文件I/O"></a>文件I/O</h1><p>文件I/O是一套只适用于Linux系统的文件操作的API,不带有缓冲机制.下面表格对比标准I/O与文件I/O的区别:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>标准I/O</th>
+<th>文件I/O</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>标准</td>
+<td>ANSI C</td>
+<td>POSIX</td>
+</tr>
+<tr>
+<td>是否带有缓冲机制</td>
+<td>有缓冲</td>
+<td>无缓冲</td>
+</tr>
+<tr>
+<td>核心对象</td>
+<td>流</td>
+<td>文件描述符</td>
+</tr>
+</tbody></table>
+<p>在linux操作系统下,标准I/O是基于文件I/O实现的.因此,标准I/O也被称为高级I/O,文件I/O也被称为低级I/O.</p>
+<h2 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h2><p>文件描述符是一个非负整数,Linux为程序中每个打开的文件分配一个文件描述符,文件I/O的所有操作都是围绕文件描述符进行的.</p>
+<p>其中,预留的三个文件描述符<code>0</code>,<code>1</code>,<code>2</code>分别代表标准输入流<code>stdin</code>,标准输出流<code>stdout</code>和标准错误流<code>stderr</code>.</p>
+<h2 id="文件的打开与关闭"><a href="#文件的打开与关闭" class="headerlink" title="文件的打开与关闭"></a>文件的打开与关闭</h2><h3 id="文件的打开"><a href="#文件的打开" class="headerlink" title="文件的打开"></a>文件的打开</h3><p>使用<code>open()</code>函数打开文件,被定义在头文件<code>fcntl.h</code>中,函数原型如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">open</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">int</span> flags)</span></span>;  </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">open</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">int</span> flags, <span class="keyword">mode_t</span> mode)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>成功打开文件时返回文件描述符,出错时返回<code>EOF</code>并设置错误号<code>errno</code>.</p>
+<p><code>pathname</code>参数表示文件名;<code>flags</code>参数表示文件的打开方式,是一系列基本常量相与<code>|</code>得到的结果;<code>mode</code>参数仅在创建新文件时有效,表示被打开文件的权限,同样受到<code>umask</code>影响.<code>flags</code>参数的取值及其作用如下:</p>
+<table>
+<thead>
+<tr> <th>取值</th> <th colspan='2'>作用</th> </tr>
+</thead>
+<tbody>
+<tr> <td><code>O_RDONLY</code></td> <td>以只读方式打开文件</td> <td rowspan='3'>这三个参数互斥</td> </tr>
+<tr> <td><code>O_WRONLY</code></td> <td>以只写方式打开文件</td> </tr>
+<tr> <td><code>O_RDWR</code></td> <td>以读写方式打开文件</td> </tr>
+<tr> <td><code>O_CREAT</code></td> <td colspan='2'>若该文件不存在则创建新文件,并设置其权限为<code>mode</code>参数</td> </tr>
+<tr> <td><code>O_EXCL</code></td> <td colspan='2'>设置<code>O_CREAT</code>时该位有效,若文件存在则报错.</td> </tr>
+<tr> <td><code>O_NOCTTY</code></td> <td colspan='2'>若欲打开的文件为终端机设备时,则不会将该终端机当成进程控制终端</td> </tr>
+<tr> <td><code>O_TRUNC</code></td> <td colspan='2'>若文件存在且以可写的方式打开时则清空文件中原有数据</td> </tr>
+<tr> <td><code>O_APPEND</code></td> <td colspan='2'>以追加方式打开文件</td> </tr>
+</tbody>
+</table>
+
+
+<h3 id="文件的关闭"><a href="#文件的关闭" class="headerlink" title="文件的关闭"></a>文件的关闭</h3><p>使用<code>close()</code>函数关闭一个打开的文件,被定义在头文件<code>unistd.h</code>中,函数原型如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">close</span><span class="params">(<span class="keyword">int</span> fd)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>成功关闭文件时返回0,出错时返回<code>EOF</code>并设置错误号<code>errno</code>.</p>
+<p>与标准I/O类似,当一个程序正常终止时,所有打开的文件都会被关闭.当文件被关闭后,对应的文件描述符就不再代表该文件.</p>
+<p>文件I/O中发生错误时同样会设置错误号<code>errno</code>,并使用<code>perror()</code>和<code>strerror()</code>得到错误的详细信息.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> fd;</span><br><span class="line">    <span class="keyword">if</span> ((fd = <span class="built_in">open</span>(<span class="string">"test.txt"</span>, O_RDWR|O_CREAT|O_EXCL, <span class="number">0666</span>) == EOF)) &#123;</span><br><span class="line">        perror(<span class="string">"创建文件过程中出错"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">close</span>(fd) == EOF) &#123;</span><br><span class="line">        perror(<span class="string">"关闭文件过程中出错"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="文件的读写"><a href="#文件的读写" class="headerlink" title="文件的读写"></a>文件的读写</h2><p><code>read()</code>函数和<code>write()</code>函数用于进行文件读写,被定义在头文件<code>unistd.h</code>中,函数原型如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">ssize_t</span> <span class="title">read</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">void</span> *buf, <span class="keyword">size_t</span> count)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">ssize_t</span> <span class="title">write</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">void</span> *buf, <span class="keyword">size_t</span> count)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>上述函数通过缓冲区<code>buf</code>向文件描述符<code>fd</code>表示的文件中读写最多<code>count</code>个字节的数据.读写成功时返回读写的字节数,出错时返回<code>EOF</code>并设置错误号<code>errno</code>.</p>
+<p>下面程序使用文件I/O实现文件复制:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta"># <span class="meta-keyword">define</span> N 20</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 若传入参数不够则提醒用户输入完整参数</span></span><br><span class="line">    <span class="keyword">if</span> (argc &lt; <span class="number">3</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Usage: %s &lt;src_file&gt; &lt;dst_file&gt;\n"</span>, argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 打开原文件与目标文件</span></span><br><span class="line">    <span class="keyword">int</span> fds, fdt;</span><br><span class="line">    <span class="keyword">if</span> ((fds = <span class="built_in">open</span>(argv[<span class="number">1</span>], O_RDONLY)) == EOF) &#123;</span><br><span class="line">        perror(<span class="string">"打开src_file的过程中发生错误"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ((fdt = <span class="built_in">open</span>(argv[<span class="number">2</span>], O_WRONLY|O_CREAT|O_TRUNC, <span class="number">0666</span>)) == EOF) &#123;</span><br><span class="line">        perror(<span class="string">"创建dst_file的过程中发生错误"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 进行复制</span></span><br><span class="line">    <span class="keyword">char</span> buff[N];</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">while</span>((n = <span class="built_in">read</span>(fds, buff, N)) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">write</span>(fdt, buff, n);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 关闭两个文件</span></span><br><span class="line">    <span class="built_in">close</span>(fds);</span><br><span class="line">    <span class="built_in">close</span>(fdt);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="文件的定位"><a href="#文件的定位" class="headerlink" title="文件的定位"></a>文件的定位</h2><p><code>lseek()</code>函数用于对文件进行定位,被定义在头文件<code>unistd.h</code>中,函数原型如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">off_t</span> <span class="title">lseek</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">off_t</span> offset, <span class="keyword">int</span> whence)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>其<code>fd</code>参数表示被定位文件的文件描述符,<code>offset</code>和<code>whence</code>参数与<code>fseek()</code>函数的用法完全相同.</p>
+<h2 id="目录的访问"><a href="#目录的访问" class="headerlink" title="目录的访问"></a>目录的访问</h2><p>使用<code>opendir()</code>函数打开一个目录文件,使用<code>readdir()</code>函数读取目录流中的内容,使用<code>closedir()</code>函数关闭一个目录文件,它们都被定义在头文件<code>dirent.h</code>中,函数原型如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">DIR *<span class="title">opendir</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *name)</span></span>;</span><br><span class="line"><span class="function">struct dirent *<span class="title">readdir</span><span class="params">(DIR *dirp)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">closedir</span><span class="params">(DIR *dirp)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>opendir()</code>函数成功打开目录文件时返回一个<code>DIR</code>结构体指针,出错时返回<code>NULL</code>并设置错误号<code>errno</code>.</li>
+<li><code>readdir()</code>函数成功读取到<strong>目录流中的下一个目录项</strong>时返回一个<code>struct dirent</code>结构体指针,读到文件流末尾时或出错时返回<code>NULL</code>并设置错误号<code>errno</code>.</li>
+<li><code>closedir()</code>函数成功关闭目录文件时返回0,出错时返回<code>EOF</code>并设置错误号<code>errno</code>.</li>
+</ul>
+<p>下面程序打印给定目录的所有目录项:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;dirent.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 若传入参数不够则提醒用户输入完整参数</span></span><br><span class="line">    <span class="keyword">if</span> (argc &lt; <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Usage: %s &lt;directory&gt;\n"</span>, argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 打开目录流</span></span><br><span class="line">    DIR *dirp;</span><br><span class="line">    <span class="keyword">if</span> ((dirp = opendir(argv[<span class="number">1</span>])) == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        perror(<span class="string">"打开目录流出现错误"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 遍历输出所有目录项</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">dirent</span> *<span class="title">dp</span>;</span></span><br><span class="line">    <span class="keyword">while</span> ((dp = readdir(dirp)) != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, dp-&gt;d_name);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="文件的访问权限"><a href="#文件的访问权限" class="headerlink" title="文件的访问权限"></a>文件的访问权限</h2><p><code>chmod()</code>和<code>fchmod()</code>函数用于修改文件的访问权限,它们都被定义在头文件<code>sys/stat.h</code>中,函数原型如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">chmod</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">mode_t</span> mode)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fchmod</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">mode_t</span> mode)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>成功修改访问权限时返回0,出错时返回<code>EOF</code>并设置错误号<code>errno</code>.</p>
+<h2 id="文件的属性"><a href="#文件的属性" class="headerlink" title="文件的属性"></a>文件的属性</h2><p><code>stat()</code>,<code>lstat()</code>和<code>fstat()</code>函数用来获取文件属性,函数原型如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">stat</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, struct stat *statbuf)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lstat</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, struct stat *statbuf)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fstat</span><span class="params">(<span class="keyword">int</span> fd, struct stat *statbuf)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>上述函数读取文件属性并将其存入参数<code>statbuf</code>指向的结构体中.成功读取到文件参数时并返回0,出错时返回<code>EOF</code>并设置错误号<code>errno</code>.</p>
+<p><code>stat()</code>函数和<code>lstat()</code>函数在大多数情况下是等价的,区别在于:若传入的文件是符号链接,则<code>stat()</code>函数获取的是目标文件的属性,而<code>lstat()</code>函数获取的是链接文件本身的属性.</p>
+<p>结构体<code>struct stat</code>存储文件的属性,包含的成员参数如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">stat</span> &#123;</span></span><br><span class="line">    <span class="keyword">dev_t</span>     st_dev;         <span class="comment">/* ID of device containing file */</span></span><br><span class="line">    <span class="keyword">ino_t</span>     st_ino;         <span class="comment">/* Inode number */</span></span><br><span class="line">    <span class="keyword">mode_t</span>    st_mode;        <span class="comment">/* File type and mode */</span></span><br><span class="line">    <span class="keyword">nlink_t</span>   st_nlink;       <span class="comment">/* Number of hard links */</span></span><br><span class="line">    <span class="keyword">uid_t</span>     st_uid;         <span class="comment">/* User ID of owner */</span></span><br><span class="line">    <span class="keyword">gid_t</span>     st_gid;         <span class="comment">/* Group ID of owner */</span></span><br><span class="line">    <span class="keyword">dev_t</span>     st_rdev;        <span class="comment">/* Device ID (if special file) */</span></span><br><span class="line">    <span class="keyword">off_t</span>     st_size;        <span class="comment">/* Total size, in bytes */</span></span><br><span class="line">    <span class="keyword">blksize_t</span> st_blksize;     <span class="comment">/* Block size for filesystem I/O */</span></span><br><span class="line">    <span class="keyword">blkcnt_t</span>  st_blocks;      <span class="comment">/* Number of 512B blocks allocated */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timespec</span> <span class="title">st_atim</span>;</span>  <span class="comment">/* Time of last access */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timespec</span> <span class="title">st_mtim</span>;</span>  <span class="comment">/* Time of last modification */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timespec</span> <span class="title">st_ctim</span>;</span>  <span class="comment">/* Time of last status change */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>其中<code>st_mode</code>成员存储了文件类型和访问权限信息.</p>
+<ul>
+<li><p>可以根据判断表达式<code>st_mode&amp;0170000</code>的运算结果来确定文件类型:</p>
+<table>
+<thead>
+<tr>
+<th>表达式<code>st_mode&amp;0170000</code>的运算结果</th>
+<th>文件类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0140000</td>
+<td>套接字文件</td>
+</tr>
+<tr>
+<td>0120000</td>
+<td>符号链接文件</td>
+</tr>
+<tr>
+<td>0100000</td>
+<td>普通文件</td>
+</tr>
+<tr>
+<td>0060000</td>
+<td>块设备文件</td>
+</tr>
+<tr>
+<td>0040000</td>
+<td>目录文件</td>
+</tr>
+<tr>
+<td>0020000</td>
+<td>目录文件</td>
+</tr>
+<tr>
+<td>0010000</td>
+<td>管道文件</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>可以根据<code>st_mode</code>与以下掩码相与的结果判断用户的访问权限:</p>
+<table>
+<thead>
+<tr>
+<th>掩码</th>
+<th>值</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>S_IRWXU</td>
+<td>00700</td>
+<td>拥有者是否具有读写执行权限</td>
+</tr>
+<tr>
+<td>S_IRUSR</td>
+<td>00400</td>
+<td>拥有者是否具有读权限</td>
+</tr>
+<tr>
+<td>S_IWUSR</td>
+<td>00200</td>
+<td>拥有者是否具有写权限</td>
+</tr>
+<tr>
+<td>S_IXUSR</td>
+<td>00100</td>
+<td>拥有者是否具有执行权限</td>
+</tr>
+<tr>
+<td>S_IRWXG</td>
+<td>00070</td>
+<td>拥有组其他成员是否具有读写执行权限</td>
+</tr>
+<tr>
+<td>S_IRGRP</td>
+<td>00040</td>
+<td>拥有组其他成员是否具有读权限</td>
+</tr>
+<tr>
+<td>S_IWGRP</td>
+<td>00020</td>
+<td>拥有组其他成员是否具有写权限</td>
+</tr>
+<tr>
+<td>S_IXGRP</td>
+<td>00010</td>
+<td>拥有组其他成员是否具有执行权限</td>
+</tr>
+<tr>
+<td>S_IRWXO</td>
+<td>00007</td>
+<td>其他用户是否具有读写执行权限</td>
+</tr>
+<tr>
+<td>S_IROTH</td>
+<td>00004</td>
+<td>其他用户是否具有读权限</td>
+</tr>
+<tr>
+<td>S_IWOTH</td>
+<td>00002</td>
+<td>其他用户是否具有写权限</td>
+</tr>
+<tr>
+<td>S_IXOTH</td>
+<td>00001</td>
+<td>其他用户是否具有执行权限</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<p>下面程序仿照<code>ls -l</code>的格式输出传入文件的属性信息:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 若传入参数不够则提醒用户输入完整参数</span></span><br><span class="line">    <span class="keyword">if</span> (argc &lt; <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Usage: %s &lt;filename&gt;\n"</span>, argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取文件的属性</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">stat</span> <span class="title">statbuf</span>;</span></span><br><span class="line">    <span class="keyword">if</span> (lstat(argv[<span class="number">1</span>], &amp;statbuf) == EOF) &#123;</span><br><span class="line">        perror(<span class="string">"获取文件属性失败"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 判断文件类型并输出</span></span><br><span class="line">    <span class="keyword">switch</span> (statbuf.st_mode &amp; S_IFMT) &#123;</span><br><span class="line">        <span class="keyword">case</span> S_IFREG:</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"-"</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> S_IFDIR:</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"d"</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">		<span class="comment">// 省略其他文件类型的判断过程</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 判断文件权限并输出</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> n=<span class="number">8</span>; n&gt;=<span class="number">0</span>; n--) &#123;</span><br><span class="line">        <span class="keyword">if</span> (statbuf.st_mode &amp; (<span class="number">1</span>&lt;&lt;n)) &#123;</span><br><span class="line">            <span class="keyword">switch</span> (n%<span class="number">3</span>) &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"r"</span>);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"w"</span>);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"x"</span>);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"-"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//输出文件大小</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\t%lu"</span>, statbuf.st_size);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 输出文件最后修改时间</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">tm</span> *<span class="title">tp</span> = <span class="title">localtime</span>(&amp;<span class="title">statbuf</span>.<span class="title">st_mtime</span>);</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\t%04d-%02d-%02d %02d:%02d:%02d"</span>,  </span><br><span class="line">               tp-&gt;tm_year+<span class="number">1900</span>, tp-&gt;tm_mon+<span class="number">1</span>, tp-&gt;tm_mday,</span><br><span class="line">               tp-&gt;tm_hour, tp-&gt;tm_min, tp-&gt;tm_sec);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 输出文件名</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, argv[<span class="number">1</span>]);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/04/02/%E6%96%87%E4%BB%B6IO/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/02/hello-world/" class="archive-article-date">
-  	<time datetime="2020-04-02T06:11:29.892Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-02</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/04/02/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hello World</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/02/hello-world/">Hello World</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -242,8 +793,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
