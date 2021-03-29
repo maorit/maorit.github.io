@@ -90,69 +90,9 @@
     <script src="./学生出入学校申请_files/vue@2.6.10.min.js.下载"></script>
     <script src="./学生出入学校申请_files/element-ui@2.13.0.min.js.下载"></script>
     <link rel="stylesheet" href="./学生出入学校申请_files/element-ui@2.13.0.min.css">
-    <script>//刷新页面
-    function reloadNowPage(nowSourceV) {
-        var search = window.location.search,
-            searchArr = search.indexOf("?") !== -1 ? search.replace('?', '').split("&") : [],
-            nowSearchArr = [],
-            nowSearch = [];
-
-        for (var index in searchArr) {
-            if (searchArr[index].indexOf("appSourceV") !== 0) {
-                nowSearchArr.push(searchArr[index]);
-            }
-        }
-
-        nowSearchArr.push("appSourceV=" + nowSourceV);
-        nowSearch = "?" + nowSearchArr.join("&");
-
-        window.location.replace(
-            window.location.protocol + "//"
-            + window.location.host
-            + window.location.pathname
-            + nowSearch
-            + window.location.hash
-        );
-    }
-
-    //获取指定参数值
-    function getQuery(name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-        var r = window.location.search.substr(1).match(reg);
-
-        if (r != null) return unescape(r[2]);
-        return null;
-    }
-
-    var nowSourceV = 1616472931758,
-        paramsSourceV = getQuery("appSourceV");
-
-    paramsSourceV = paramsSourceV ? paramsSourceV : 0;
-    if ('production' == 'production') {
-        $.ajax({
-            url: "/v2/static/version.js?v=" + (new Date()).getTime(),
-            method: 'GET',
-            dataType: 'json',
-            async: false,
-            success: function (res) {
-                if (paramsSourceV !== res.version) {
-                    if (res.version != nowSourceV) {
-                        reloadNowPage(res.version);
-                    }
-                } else {
-                    console.log("获取到的版本文件为最新文件，和最新版本不对应");
-                }
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        })
-    }
-
-
-    </script>
-
-
+    
+	
+	
     <link href="./学生出入学校申请_files/chunk-vendors.fba54b4835a87e431b50.css" rel="stylesheet">
     <link href="./学生出入学校申请_files/app.1ca35a5a8ebe27fad144.css" rel="stylesheet">
 
