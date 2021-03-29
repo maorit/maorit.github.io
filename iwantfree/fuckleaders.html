@@ -8,34 +8,56 @@
     <link rel="stylesheet" href="./学生出入学校申请_files/bootstrap.min.css">
     <script src="./学生出入学校申请_files/jquery.min.js.下载"></script>
     <script src="./学生出入学校申请_files/bootstrap.min.js.下载"></script>
-    <script>
-        function myButtonClick() {
-            var passwd = document.querySelector("#myModal #passwd_input").value;
-            if (passwd == "772901") {
-                document.querySelector("#myModal").classList.add('fade');
-                document.querySelector("#name_display").textContent = document.querySelector("#name_input").value;
-                document.querySelector("#class_display").textContent = document.querySelector("#class_input").value;
-                document.querySelector("#id_display").textContent = document.querySelector("#id_input").value;
-                document.querySelector("#room_display").textContent = document.querySelector("#room_input").value;
-                document.querySelector("#fudaoyuan_display").textContent = document.querySelector("#fudaoyuan_input").value;
-                document.querySelector("#tutor_display").textContent = document.querySelector("#tutor_input").value;
-                document.querySelector("#contact_display").textContent = document.querySelector("#contact_input").value;
-                document.querySelector("#contact_telephone_display").textContent = document.querySelector("#contact_telephone_input").value;
-                document.querySelector("#reason_display").textContent = document.querySelector("#reason_input").value;
-            } else {
-                alert("密码有毛病");
-            }
+    <script>    // 给时间甜腻急啊format函数
+    Date.prototype.Format = function (fmt) {
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "H+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
         };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+    </script>
+    <script>    // 点击按钮回调函数
+    function myButtonClick() {
+        var passwd = document.querySelector("#myModal #passwd_input").value;
+        if (passwd == "772901") {
+            document.querySelector("#myModal").classList.add('fade');
+            document.querySelector("#name_display").textContent = document.querySelector("#name_input").value;
+            document.querySelector("#class_display").textContent = document.querySelector("#class_input").value;
+            document.querySelector("#id_display").textContent = document.querySelector("#id_input").value;
+            document.querySelector("#room_display").textContent = document.querySelector("#room_input").value;
+            document.querySelector("#fudaoyuan_display").textContent = document.querySelector("#fudaoyuan_input").value;
+            document.querySelector("#tutor_display").textContent = document.querySelector("#tutor_input").value;
+            document.querySelector("#contact_display").textContent = document.querySelector("#contact_input").value;
+            document.querySelector("#contact_telephone_display").textContent = document.querySelector("#contact_telephone_input").value;
+            document.querySelector("#reason_display").textContent = document.querySelector("#reason_input").value;
+            var go_out_time = new Date(new Date() - 1000 * 60 * 60 * 5);
+            var go_back_time = new Date(new Date() + 1000 * 60 * 60 * 5);
+            document.querySelector("#request_time_display").textContent = go_out_time.Format("yyyy-MM-dd");
+            document.querySelector("#go_out_time_display").textContent = go_out_time.Format("yyyy-MM-dd HH:mm");
+            document.querySelector("#go_back_time_display").textContent = go_back_time.Format("yyyy-MM-dd HH:mm");
+        } else {
+            alert("密码有毛病");
+        }
+    };
     </script>
     <script>
-	// 百度统计访问量
-	var _hmt = _hmt || [];
-	(function() {
-	  var hm = document.createElement("script");
-	  hm.src = "https://hm.baidu.com/hm.js?48219cc3d5d8d80953c15584a9ca61ec";
-	  var s = document.getElementsByTagName("script")[0]; 
-	  s.parentNode.insertBefore(hm, s);
-	})();
+        // 百度统计访问量
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?48219cc3d5d8d80953c15584a9ca61ec";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
     </script>
 
 
@@ -90,9 +112,8 @@
     <script src="./学生出入学校申请_files/vue@2.6.10.min.js.下载"></script>
     <script src="./学生出入学校申请_files/element-ui@2.13.0.min.js.下载"></script>
     <link rel="stylesheet" href="./学生出入学校申请_files/element-ui@2.13.0.min.css">
-    
-	
-	
+
+
     <link href="./学生出入学校申请_files/chunk-vendors.fba54b4835a87e431b50.css" rel="stylesheet">
     <link href="./学生出入学校申请_files/app.1ca35a5a8ebe27fad144.css" rel="stylesheet">
 
@@ -112,13 +133,14 @@
      style="display: block; overflow-scrolling: touch">
     <div class="modal-dialog">
         <div class="modal-content">
-            <h4 class="modal-title" id="myModalLabel"><b>免责声明</b>:本网页仅供<font color="yellow">欺男霸女工作室</font>内部使用，非法访问将<font
+            <h4 class="modal-title" id="myModalLabel"><b>免责声明</b>:本网页仅供<font
+                    color="yellow">欺男霸女工作室</font>内部使用，非法访问将<font
                     color="red">追究法律责任</font></h4>
             <div class="modal-body">
                 <form class="bs-example bs-example-form" role="form">
                     <div class="input-group">
                         <span class="input-group-addon">访问密码</span>
-                        <input type="text" class="form-control" value="" placeholder="联系管理员获得密码"  id="passwd_input">
+                        <input type="text" class="form-control" value="" placeholder="联系管理员获得密码" id="passwd_input">
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon">你的名字</span>
@@ -291,7 +313,8 @@
                                  style="margin-top: 0px; margin-bottom: 0px; text-align: left;">
                                 <div class="dplugin-mobile dplugin-mobile-dinput dinput-vie dplugin-mobile-dinput-focusalert"
                                      style="font-size: 14px; font-family: 微软雅黑; font-weight: normal; font-style: normal; color: rgb(96, 98, 102); text-decoration: none; text-align: left; line-height: 20px; letter-spacing: 0px;">
-                                    <span id="room_display" style="font-size: 14px; font-family: 微软雅黑; font-weight: normal; font-style: normal; color: rgb(96, 98, 102); text-decoration: none; text-align: left; line-height: 20px; letter-spacing: 0px;">你的宿舍号</span>
+                                    <span id="room_display"
+                                          style="font-size: 14px; font-family: 微软雅黑; font-weight: normal; font-style: normal; color: rgb(96, 98, 102); text-decoration: none; text-align: left; line-height: 20px; letter-spacing: 0px;">你的宿舍号</span>
                                 </div>
                             </div> <!----></div>
                     </div>
