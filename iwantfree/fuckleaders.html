@@ -39,8 +39,8 @@
             document.querySelector("#contact_display").textContent = document.querySelector("#contact_input").value;
             document.querySelector("#contact_telephone_display").textContent = document.querySelector("#contact_telephone_input").value;
             document.querySelector("#reason_display").textContent = document.querySelector("#reason_input").value;
-            var go_out_time = new Date(new Date() - 1000 * 60 * 60 * 5);
-            var go_back_time = new Date(new Date() + 1000 * 60 * 60 * 5);
+            var go_out_time = new Date(new Date().setHours(new Date().getHours() - 5));
+            var go_back_time = new Date(new Date().setHours(new Date().getHours() + 5));
             document.querySelector("#request_time_display").textContent = go_out_time.Format("yyyy-MM-dd");
             document.querySelector("#go_out_time_display").textContent = go_out_time.Format("yyyy-MM-dd HH:mm");
             document.querySelector("#go_back_time_display").textContent = go_back_time.Format("yyyy-MM-dd HH:mm");
